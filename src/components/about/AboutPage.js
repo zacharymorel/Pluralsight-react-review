@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class AboutPage extends Component {
-  render(){ 
+  render() { 
     return(
       <div>
         <h1>About</h1>
@@ -10,3 +10,5 @@ class AboutPage extends Component {
     )
   }
 }
+
+export default AboutPage
