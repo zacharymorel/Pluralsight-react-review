@@ -6,15 +6,15 @@ export function loadCoursesSuccess(courses) {
 }
 
 
-
 export function loadCourses() {
   return dispatch => {
     return courseApi.getAllCourses()
-      .then(course => {
-        dispatch(loadCoursesSuccess(courses))
-      })
-      .catch(error => {
-        throw(error)
-      })
+    .then(courses => {
+      dispatch(loadCoursesSuccess(courses))
+    })
+    .catch(error => {
+      throw(error)
+      // In a Prod app we would have dispatch(loadCoursesFailure(error))
+    })
   }
 }
