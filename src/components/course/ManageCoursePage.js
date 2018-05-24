@@ -49,7 +49,7 @@ ManageCoursePage.propTypes = {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({saveCourse, dispatch})
+  return bindActionCreators({ saveCourse }, dispatch)
 }
 
 function mapStateToProps(state, ownProps) {
@@ -68,5 +68,5 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(ManageCoursePage)
+export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage)
 
