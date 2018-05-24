@@ -6,15 +6,17 @@ const SelectInput = ({ name, label, onChange, defaultOption, value, error, optio
       <label htmlFor={name}>{label}</label>
       <div className='feild'>
         <select 
+          className='form-control'
           name={name}
           value={value}
           onChange={onChange}
-        />
+        >
           <option value=''>{defaultOption}</option>
           {options.map(option => {
               return <option key={option.value}>{option.text}</option>
             })
           }
+        </select>
           {error && <div className='alert alert-danger'>{error}</div>}
       </div>
     </div>
