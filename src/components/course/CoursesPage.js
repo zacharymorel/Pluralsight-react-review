@@ -4,6 +4,7 @@ import { bindActionCreators } from  'redux'
 import { browserHistory } from 'react-router'
 import CourseList from './CourseList'
 
+// Courses Parent Component
 class CoursesPage extends Component {
   constructor(props, context) {
     super(props, context)
@@ -40,7 +41,6 @@ CoursesPage.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-  // debugger
   return { 
     courses: state.courses
   }
