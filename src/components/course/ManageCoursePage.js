@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux' 
 import { connect } from 'react-redux'
+import toastr  from 'toastr'
 import { saveCourse } from '../../actions/courseActions'
 import CourseForm from './CourseFrom'
 
@@ -9,11 +10,13 @@ class ManageCoursePage extends Component {
     super(props, context)
     this.state = {
       course: Object.assign({}, this.props.course),
-      errors: {}
+      errors: {},
+      saving: false
     }
 
     this.updateCourse = this.updateCourse.bind(this)
     this.saveCourse = this.saveCourse.bind(this)
+    this.redirect = this.redirect.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,7 +33,18 @@ class ManageCoursePage extends Component {
   
   saveCourse(e) {
     e.preventDefault()
+    this.setState({ saving: true })
     this.props.saveCourse(this.state.course)
+      .then(() => this.redirect())
+      .catch(error => {
+        toastr.error(error)
+        this.setState({ saving: false })
+      })
+  }
+
+  redirect() {
+    this.setState({ saving: false })
+    toastr.success('Course Saved')
     this.context.router.push('/courses')
   }
 
@@ -42,6 +56,7 @@ class ManageCoursePage extends Component {
         errors={this.state.errors}
         onChange={this.updateCourse}
         onSave={this.saveCourse}
+        saving={this.state.saving}
       />
     )
   }
