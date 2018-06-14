@@ -5,7 +5,7 @@ import toastr  from 'toastr'
 import { saveCourse } from '../../actions/courseActions'
 import CourseForm from './CourseFrom'
 
-class ManageCoursePage extends Component {
+export class ManageCoursePage extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -14,14 +14,28 @@ class ManageCoursePage extends Component {
       saving: false
     }
 
-    this.updateCourse = this.updateCourse.bind(this)
-    this.saveCourse = this.saveCourse.bind(this)
+    this.courseFormValid = this.courseFormValid.bind(this)
     this.redirect = this.redirect.bind(this)
+    this.saveCourse = this.saveCourse.bind(this)
+    this.updateCourse = this.updateCourse.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
     if(this.props.course.id !== nextProps.course.id) 
       this.setState({ course: Object.assign({}, nextProps.course) })
+  }
+
+  courseFormValid() {
+    let fromIsValid = true
+    let errors = {}
+
+    if(this.state.course.title.length < 5) {
+      errors.title = 'Title must be at least 5 characters.'
+      fromIsValid = false
+    }
+
+    this.setState({ errors })
+    return fromIsValid
   }
 
   updateCourse(e) {
@@ -33,6 +47,10 @@ class ManageCoursePage extends Component {
   
   saveCourse(e) {
     e.preventDefault()
+
+    if(!this.courseFormValid())
+      return 
+
     this.setState({ saving: true })
     this.props.saveCourse(this.state.course)
       .then(() => this.redirect())

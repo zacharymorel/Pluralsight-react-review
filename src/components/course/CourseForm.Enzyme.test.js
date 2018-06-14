@@ -4,6 +4,9 @@ import { mount, shallow } from 'enzyme'
 import TestUtils from 'react-addons-test-utils'
 import CourseForm from './CourseFrom'
 
+/*
+  Texting helper Enzyme
+*/
 
 function setup(saving) {
   const props = {
