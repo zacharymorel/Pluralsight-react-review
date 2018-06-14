@@ -2,8 +2,12 @@ import expect from 'expect'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import CourseForm from './CourseFrom'
-import { puts } from 'util';
 
+
+
+/*  
+  REACT TEST UTILS API
+*/
 function setup() {
   let props = {
       course: {}, saving: false, errors: {},
@@ -28,6 +32,12 @@ describe('CourseForm via React Test Utils', () => {
     expect(output.type).toBe('form')
     let [ h1 ] = output.props.children
     expect(h1.type).toBe('h1')
+  })
+
+  it('save button is labeled "Save" when not saving', () => {
+    const { output } = setup(false)
+    const submitButton = output.props.children[5]
+    expect(submitButton.props.value).toBe('Save')
   })
 
 })
